@@ -84,6 +84,7 @@ inputValue.addEventListener("input", (event) => {
       if (state[property].includes(event.target.value.toLowerCase())) {
         const guessedState = document.getElementById(property)
         guessedState.innerText = state[property][0]
+        inputValue.classList.add("input_highlight")
         guessedState.classList.add("guessed")
         state[property] = [null]
         score += 1
@@ -91,7 +92,8 @@ inputValue.addEventListener("input", (event) => {
         inputValue.value = ""
         setTimeout(() => {
           guessedState.classList.remove("guessed")
-        }, 250)
+          inputValue.classList.remove("input_highlight")
+        }, 300)
       }
     }
   })

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&family=Montserrat:wght@700&display=swap');
+
 body, html{
     width: 100%;
     margin: 0;
@@ -6,6 +8,11 @@ body, html{
     text-align: center;
     color: white;
     background-color: #12232E;
+    font-family: 'Lato', sans-serif;
+}
+
+.headers{
+    font-family: 'Montserrat', sans-serif;
 }
 
 main{
@@ -44,12 +51,15 @@ main{
 
 .user_input{
     width: 90%;
-    padding: 8px;
-    font-size: 100%;
+    padding: 4px;
+    font-size: 24px;
     border: none;
+
 }
 
-
+.input_highlight{
+background: lightgreen;
+}
 .state{
     font-size: 20px;
     background-color: #007CC7;
