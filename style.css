@@ -13,6 +13,11 @@ main{
     text-align: center; 
 }
 
+.guessed{
+    transform: scale(1.1);
+  border-color: #ffc600;
+  box-shadow: 0 0 1rem #ffc600;
+}
 
 #button-start{
     background-color: #4DA8Da;
@@ -44,14 +49,12 @@ main{
     border: none;
 }
 
-.user_input:active:placeholder{
-    background-color: green;
-}
 
 .state{
     font-size: 20px;
     background-color: #007CC7;
     padding: 20px;
+    text-transform: capitalize;
 }
 
 .state_container{

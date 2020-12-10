@@ -52,44 +52,46 @@ const states = [
 ]
 
 const stateContainer = document.querySelectorAll(".state_container")[0]
-console.log(stateContainer)
 
-for (i = 0; i < 50; i++) {
-  let tempDiv = document.createElement("div")
-  tempDiv.id = `S${i + 1}`
-  tempDiv.classList.add("state")
-  tempDiv.innerText = "?"
-  console.log(`S${i}`)
-  stateContainer.appendChild(tempDiv)
+const createDivs = () => {
+  for (i = 0; i < 50; i++) {
+    let tempDiv = document.createElement("div")
+    tempDiv.id = `S${i + 1}`
+    tempDiv.classList.add("state")
+    tempDiv.innerText = "?"
+    stateContainer.appendChild(tempDiv)
+  }
 }
 
+
+const restartGame = () => {
+  clearInterval(endOfGame)
+  inputValue.disabled = true
+  score = 0;
+  timer.innerText = `time: 10:00`
+  Array.from(document.getElementsByClassName("state")).map(state => {
+    state.innerText = "?"
+  })
+}
 
 const inputValue = document.querySelector(".user_input")
 let score = 0
-const Bigletter = (text) => {
-  const words = text.split(" ")
-  const finalWord = words.map(word => {
-    return word[0].toUpperCase() + word.slice(1)
-  })
-  return finalWord.join(" ")
-}
-
-const blinker = (element, duration) => {
-  element.style.opacity = 0;
-  setTimeout(function () { element.style.opacity = 1; }, duration);
-}
+createDivs()
 
 inputValue.addEventListener("input", (event) => {
   states.map(state => {
     for (const property in state) {
       if (state[property].includes(event.target.value.toLowerCase())) {
-        console.log(property)
-        blinker(document.getElementById(property), 200)
-        document.getElementById(property).innerText = state[property][0].toUpperCase()
+        const guessedState = document.getElementById(property)
+        guessedState.innerText = state[property][0]
+        guessedState.classList.add("guessed")
         state[property] = [null]
         score += 1
         scoreBox.innerText = `score: ${score}/50`
         inputValue.value = ""
+        setTimeout(() => {
+          guessedState.classList.remove("guessed")
+        }, 250)
       }
     }
   })
@@ -98,8 +100,6 @@ const timer = document.getElementById("time")
 
 const countDown = () => {
   let time = 600
-
-
 
   endOfGame = setInterval(() => {
     if (time === 0) {
@@ -140,10 +140,7 @@ startButton.addEventListener("click", () => {
 })
 
 endButton.addEventListener("click", () => {
-  clearInterval(endOfGame)
-  inputValue.disabled = true
-  score = 0;
-  timer.innerText = `time: 10:00`
+  restartGame()
 })
 
 scoreBox.innerText = `score: ${score}/50`
