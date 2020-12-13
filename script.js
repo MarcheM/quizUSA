@@ -20,14 +20,10 @@ class Game {
     this.timer = document.getElementById("time")
     this.states = []
     this.inputValue = document.querySelector(".user_input")
-    this.endButton = document.getElementById("end")
     this.scoreBox = document.getElementById("score-box")
     this.timer.innerText = `time left: 10:00`
     this.singleStates = document.querySelectorAll(".state")
     this.fetchData()
-    this.endButton.addEventListener("click", () => {
-      this.inputValue.disabled = true
-    })
     this.inputValue.addEventListener("input", (event) => {
       this.check(event)
     })
@@ -85,7 +81,7 @@ class Game {
     const endOfGame = setInterval(() => {
       if (this.time === 0) {
         this.inputValue.disabled = true
-        window.alert(`koniec! Odgadłeś ${this.score} stanów`)
+        this.showScore()
         clearInterval(endOfGame)
       }
       else if (this.score === 50) {
@@ -105,11 +101,18 @@ class Game {
         this.timer.innerText = `time left: ${minutes}:${finalSeconds}`
       }
 
-      this.endButton.addEventListener('click', () => {
+      document.getElementById("end").addEventListener('click', () => {
         clearInterval(endOfGame)
+        this.inputValue.disabled = true
+        this.showScore()
       })
     }, 1000)
   }
+
+  showScore = () => {
+    alert(`koniec! Odgadłeś ${this.score} stanów`)
+  }
+
 
   play = () => {
     this.score = 0
@@ -125,24 +128,5 @@ document.getElementById("start").addEventListener("click", () => {
   userGame.play()
   userGame.hidePreviousAnswers()
 })
-
-// const restartGame = () => {
-//   clearInterval(endOfGame)
-//   inputValue.disabled = true
-//   score = 0;
-//   timer.innerText = `time: 10:00`
-//   Array.from(document.getElementsByClassName("state")).map(state => {
-//     state.innerText = "?"
-//   })
-// }
-
-
-// let score = 0
-// createDivs()
-
-
-// const timer = document.getElementById("time")
-
-// const 
 
 
