@@ -1,60 +1,8 @@
-const states = [
-  { S1: ["alabama"] },
-  { S2: ["alaska"] },
-  { S3: ["arizona"] },
-  { S4: ["arkansas", "arkanzas"] },
-  { S5: ["connecticut", "conecticut"] },
-  { S6: ["dakota płd", "dakota południowa", "south dakota"] },
-  { S7: ["dakota płn", "dakota północna", "north dakota"] },
-  { S8: ["delaware"] },
-  { S9: ["floryda", "florida"] },
-  { S10: ["georgia"] },
-  { S11: ["hawaje", "hawaii"] },
-  { S12: ["idaho"] },
-  { S13: ["illinois"] },
-  { S14: ["indiana"] },
-  { S15: ["iowa"] },
-  { S16: ["kalifornia", "california"] },
-  { S17: ["kansas"] },
-  { S18: ["karolina płd", "karolina południowa", "south carolina"] },
-  { S19: ["karolina płn", "karolina północna", "north carolina"] },
-  { S20: ["kentucky"] },
-  { S21: ["kolorado", "colorado"] },
-  { S22: ["luizjana"] },
-  { S23: ["maine"] },
-  { S24: ["maryland"] },
-  { S25: ["massachusetts", "masachusets", "massachussets", "masachusets"] },
-  { S26: ["michigan"] },
-  { S27: ["minnesota", "minesota"] },
-  { S28: ["missisipi", "mississippi", "mississipi", "misisipi"] },
-  { S29: ["missouri", "misouri"] },
-  { S30: ["montana"] },
-  { S31: ["nebraska"] },
-  { S32: ["nevada"] },
-  { S33: ["new hampshire"] },
-  { S34: ["new jersey"] },
-  { S35: ["new york", "nowy jork"] },
-  { S36: ["nowy meksyk", "new mexico"] },
-  { S37: ["ohio"] },
-  { S38: ["oklahoma"] },
-  { S39: ["oregon"] },
-  { S40: ["pensylwania", "pennsylvania"] },
-  { S41: ["rhode island"] },
-  { S42: ["teksas", "texas"] },
-  { S43: ["tennessee", "tennesse"] },
-  { S44: ["utah"] },
-  { S45: ["vermont", "wermont"] },
-  { S46: ["waszyngton", "washington"] },
-  { S47: ["wirginia", "virginia"] },
-  { S48: ["wirginia zach", "wirginia zachodnia", "west virginia"] },
-  { S49: ["wisconsin"] },
-  { S50: ["wyoming"] },
-]
 
-const stateContainer = document.querySelectorAll(".state_container")[0]
+const stateContainer = document.querySelector(".state_container")
 
 const createDivs = () => {
-  for (i = 0; i < 50; i++) {
+  for (let i = 0; i < 50; i++) {
     let tempDiv = document.createElement("div")
     tempDiv.id = `S${i + 1}`
     tempDiv.classList.add("state")
@@ -63,86 +11,138 @@ const createDivs = () => {
   }
 }
 
-
-const restartGame = () => {
-  clearInterval(endOfGame)
-  inputValue.disabled = true
-  score = 0;
-  timer.innerText = `time: 10:00`
-  Array.from(document.getElementsByClassName("state")).map(state => {
-    state.innerText = "?"
-  })
-}
-
-const inputValue = document.querySelector(".user_input")
-let score = 0
 createDivs()
+class Game {
 
-inputValue.addEventListener("input", (event) => {
-  states.map(state => {
-    for (const property in state) {
-      if (state[property].includes(event.target.value.toLowerCase())) {
-        const guessedState = document.getElementById(property)
-        guessedState.innerText = state[property][0]
-        inputValue.classList.add("input_highlight")
-        guessedState.classList.add("guessed")
-        state[property] = [null]
-        score += 1
-        scoreBox.innerText = `score: ${score}/50`
-        inputValue.value = ""
-        setTimeout(() => {
-          guessedState.classList.remove("guessed")
-          inputValue.classList.remove("input_highlight")
-        }, 300)
+  constructor() {
+    this.score = 0
+    this.time = 0
+    this.timer = document.getElementById("time")
+    this.states = []
+    this.inputValue = document.querySelector(".user_input")
+    this.endButton = document.getElementById("end")
+    this.scoreBox = document.getElementById("score-box")
+    this.timer.innerText = `time left: 10:00`
+    this.singleStates = document.querySelectorAll(".state")
+    this.fetchData()
+    this.endButton.addEventListener("click", () => {
+      this.inputValue.disabled = true
+    })
+    this.inputValue.addEventListener("input", (event) => {
+      this.check(event)
+    })
+
+  }
+
+
+  fetchData = () => {
+    fetch(`https://quizusa-9fc86-default-rtdb.firebaseio.com/quiz/-MOSOJz8ogddsCk4YGxQ.json`)
+      .then(res => res.json())
+      .then(quiz => {
+        const statesList = quiz
+          ? Object
+            .keys(quiz)
+            .map(key => {
+              return {
+                ...quiz[key]
+              }
+            })
+          : []
+        this.states = statesList
+      })
+  }
+
+  check = (event) => {
+    this.states.map(state => {
+      for (const property in state) {
+        if (state[property].includes(event.target.value.toLowerCase())) {
+          const guessedState = document.getElementById(property)
+          guessedState.innerText = state[property][0]
+          this.inputValue.classList.add("input_highlight")
+          guessedState.classList.add("showBravo")
+          guessedState.classList.add("guessed")
+          state[property] = [null]
+          this.score += 1
+          this.scoreBox.innerText = `score: ${this.score}/50`
+          this.inputValue.value = ""
+          setTimeout(() => {
+            guessedState.classList.remove("showBravo")
+            this.inputValue.classList.remove("input_highlight")
+          }, 300)
+        }
       }
-    }
-  })
-})
-const timer = document.getElementById("time")
+    })
+  }
 
-const countDown = () => {
-  let time = 600
+  hidePreviousAnswers = () => {
+    Array.from(this.singleStates).map(usState => {
+      usState.innerText = "?"
+      usState.classList.remove("guessed")
+    })
+  }
 
-  endOfGame = setInterval(() => {
-    if (time === 0) {
-      inputValue.disabled = true
-      window.alert(`koniec! Odgadłeś ${score} stanów`)
-      clearInterval(endOfGame)
-      score = 0
-    }
-    else if (score === 50) {
-      inputValue.disabled = true
-      window.alert(`koniec! Odgadłeś wszystkie stany! GRATULACJE!!!!!`)
-      clearInterval(endOfGame)
-      score = 0
-    } else {
-      time = time - 1
-      let minutes = Math.floor(time / 60)
-      let seconds = time - (minutes * 60)
-      if (seconds < 10) {
-        finalSeconds = `0${seconds}`
+  countDown = () => {
+    const endOfGame = setInterval(() => {
+      if (this.time === 0) {
+        this.inputValue.disabled = true
+        window.alert(`koniec! Odgadłeś ${this.score} stanów`)
+        clearInterval(endOfGame)
+      }
+      else if (this.score === 50) {
+        this.inputValue.disabled = true
+        window.alert(`koniec! Odgadłeś wszystkie stany! GRATULACJE!!!!!`)
+        clearInterval(endOfGame)
       } else {
-        finalSeconds = seconds
+        this.time -= 1
+        let minutes = Math.floor(this.time / 60)
+        let seconds = this.time - (minutes * 60)
+        let finalSeconds
+        if (seconds < 10) {
+          finalSeconds = `0${seconds}`
+        } else {
+          finalSeconds = seconds
+        }
+        this.timer.innerText = `time left: ${minutes}:${finalSeconds}`
       }
 
-      timer.innerText = `time left: ${minutes}:${finalSeconds}`
-    }
-  }, 1000)
+      this.endButton.addEventListener('click', () => {
+        clearInterval(endOfGame)
+      })
+    }, 1000)
+  }
+
+  play = () => {
+    this.score = 0
+    this.time = 600
+    this.inputValue.disabled = false
+    this.countDown()
+  }
 }
 
+document.getElementById("start").addEventListener("click", () => {
 
-
-
-const startButton = document.getElementById("button-start")
-const endButton = document.getElementById("button-end")
-const scoreBox = document.getElementById("score-box")
-startButton.addEventListener("click", () => {
-  inputValue.disabled = false
-  countDown()
+  const userGame = new Game()
+  userGame.play()
+  userGame.hidePreviousAnswers()
 })
 
-endButton.addEventListener("click", () => {
-  restartGame()
-})
+// const restartGame = () => {
+//   clearInterval(endOfGame)
+//   inputValue.disabled = true
+//   score = 0;
+//   timer.innerText = `time: 10:00`
+//   Array.from(document.getElementsByClassName("state")).map(state => {
+//     state.innerText = "?"
+//   })
+// }
 
-scoreBox.innerText = `score: ${score}/50`
+
+// let score = 0
+// createDivs()
+
+
+// const timer = document.getElementById("time")
+
+// const 
+
+

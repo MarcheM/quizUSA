@@ -7,10 +7,15 @@
     <title>Stany USA</title>
 </head>
 <body>
-    <main><h2>Wymień wszystkie stany USA:</h2></main>
-    <button style="headers" id="button-start">start</button>
-    <button style="headrers" id="button-end">przerwij</button>
-   <div id="info-container"> <div id="score-box"></div><div id="time">time: 10:00</div></div>
+    <main>
+        <h2>Wymień wszystkie stany USA:</h2>
+    </main>
+    <button class="button" id="start">start</button>
+    <button class="button" id="end">zakończ</button>
+        <div id="info-container"> 
+            <div id="score-box">score: 0</div>
+            <div id="time">10:00</div>
+        </div>
 <div class="input_box"><input  class="user_input" disabled/></div>
 <div class="state_container">
 
@@ -19,5 +24,24 @@
 
 
  <script src="./script.js"></script>   
+ <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyDB30ee-2KQt8K0KlQzRl-ucXYyzn7H9cM",
+    authDomain: "quizusa-9fc86.firebaseapp.com",
+    projectId: "quizusa-9fc86",
+    storageBucket: "quizusa-9fc86.appspot.com",
+    messagingSenderId: "690615835797",
+    appId: "1:690615835797:web:79d07e680c3f023bb14f9c"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+</script>
 </body>
 </html>
