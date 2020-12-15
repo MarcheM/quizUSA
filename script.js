@@ -146,7 +146,7 @@ class Game {
       return `Heh... Przynajmniej mała szansa, że następnym razem będzie gorzej!`
     }
     if (this.score < 5) {
-      return `Zdobyłeś ${this.score} punkty. Nie wiem co powiedzieć. Musisz z tym żyć...`
+      return `Zdobyłeś ${this.score} punkty. Nie martw się, w czymś innym musisz być dobry (lub chociaż przeciętny, rajt?)`
     }
     if (this.score / 50 > .8) {
       return `Brawo! Zdobyłeś ${this.score} punktów! Niewiele zabrakło!`
