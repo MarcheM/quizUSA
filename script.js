@@ -31,13 +31,13 @@ class Game {
     this.singleStates = document.querySelectorAll(".state")
     this.time = 600
     this.states = []
-    timer.innerText = `time left: 10:00`
+    timer.innerText = `czas do końca: 10:00`
 
     this.fetchData()
     inputValue.addEventListener("input", (event) => {
       this.check(event)
     })
-    scoreBox.innerText = `score: ${this.score}`
+    scoreBox.innerText = `wybik: ${this.score}/50`
 
   }
   score = 0
@@ -70,7 +70,7 @@ class Game {
           guessedState.classList.add("guessed")
           state[property].push("dupablada")
           this.score += 1
-          scoreBox.innerText = `score: ${this.score}/50`
+          scoreBox.innerText = `wynik: ${this.score}/50`
           inputValue.value = ""
           setTimeout(() => {
             guessedState.classList.remove("showBravo")
@@ -124,7 +124,7 @@ class Game {
         handleEnd()
       } else {
         this.time -= 1
-        timer.innerText = `time left: ${this.countTime(this.time)}`
+        timer.innerText = `czas do końca: ${this.countTime(this.time)}`
       }
 
       document.getElementById("end").addEventListener('click', () => {

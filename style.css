@@ -43,7 +43,6 @@ header{
 .guessed{
     color: rgb(109, 248, 109) !important;
     text-shadow: 1px 1px green;
-    background: linear-gradient(#fff, #b22234, #3c3b6e);
 }
 
 .button__container{
