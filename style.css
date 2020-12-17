@@ -218,13 +218,17 @@ font-size: 3vw;
 
 
 .state{
-    font-size: 3vw;
+    font-size: 4vw;
 }
 }
 
 @media (max-width: 600px){ 
     .main--container{
-        width: 100%;
+        width: 95%;
         padding: 0;
+    }
+    .button{
+        font-size: 5vw;
+        margin: 10px;
     }
 }
