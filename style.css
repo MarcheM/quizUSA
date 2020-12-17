@@ -134,7 +134,7 @@ background: lightgreen;
 }
 
 .state_container{
-    max-width: 100%;
+    max-width: 95%;
     display: grid;
     grid-gap: 8px;
     grid-template-columns: repeat(auto-fill, 220px);
