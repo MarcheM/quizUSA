@@ -3,7 +3,8 @@ const timer = document.getElementById("time")
 const stateContainer = document.querySelector(".state_container")
 const inputValue = document.querySelector(".user_input")
 const scoreBox = document.getElementById("score-box")
-
+const endButton = document.querySelector("#end")
+const startButton = document.querySelector("#start")
 const scoreText = document.querySelector(".score-text")
 const closeModal = document.querySelector('.close')
 
@@ -99,36 +100,37 @@ class Game {
     })
   }
 
+  countTime = (numberOfSecond) => {
+    let minutes = Math.floor(numberOfSecond / 60)
+    let seconds = numberOfSecond - (minutes * 60)
+    let finalSeconds
+    if (seconds < 10) {
+      finalSeconds = `0${seconds}`
+    } else {
+      finalSeconds = seconds
+    }
+    return `${minutes}:${finalSeconds}`
+  }
+
   countDown = () => {
     const endOfGame = setInterval(() => {
-      if (this.time === 0) {
+      const handleEnd = () => {
+        clearInterval(endOfGame)
         inputValue.disabled = true
         this.showScore()
-        clearInterval(endOfGame)
         this.showAnswers()
       }
-      else if (this.score === 50) {
-        inputValue.disabled = true
-        this.showScore()
-        clearInterval(endOfGame)
+      if (this.time === 0 || this.score === 50) {
+        handleEnd()
       } else {
         this.time -= 1
-        let minutes = Math.floor(this.time / 60)
-        let seconds = this.time - (minutes * 60)
-        let finalSeconds
-        if (seconds < 10) {
-          finalSeconds = `0${seconds}`
-        } else {
-          finalSeconds = seconds
-        }
-        timer.innerText = `time left: ${minutes}:${finalSeconds}`
+        timer.innerText = `time left: ${this.countTime(this.time)}`
       }
 
       document.getElementById("end").addEventListener('click', () => {
-        clearInterval(endOfGame)
-        inputValue.disabled = true
-        this.showAnswers()
-        this.showScore()
+        handleEnd()
+        endButton.disabled = true
+        startButton.disabled = false
       })
     }, 1000)
   }
@@ -148,13 +150,13 @@ class Game {
     if (this.score < 5) {
       return `Zdobyłeś ${this.score} punkty. Nie martw się, w czymś innym musisz być dobry (lub chociaż przeciętny, rajt?)`
     }
-    if (this.score / 50 > .8) {
+    if (this.score >= 40) {
       return `Brawo! Zdobyłeś ${this.score} punktów! Niewiele zabrakło!`
     }
-    if (this.score / 50 >= .5) {
-      return `${this.score} stanów to dość przyzwoity wynik. Brawo`
+    if (this.score > 25) {
+      return `${this.score} stanów to dość przyzwoity wynik. Trochę doczytasz i wrócisz`
     }
-    if (this.score / 50 < .5) {
+    if (this.score < 25) {
       return `Zdobyłeś ${this.score} punktów`
     }
   }
@@ -167,10 +169,12 @@ class Game {
   }
 }
 
-document.getElementById("start").addEventListener("click", () => {
+startButton.addEventListener("click", () => {
   let userGame = new Game()
   userGame.play()
   userGame.hidePreviousAnswers()
+  endButton.disabled = false
+  startButton.disabled = true
 })
 
 
