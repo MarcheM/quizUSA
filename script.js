@@ -37,7 +37,7 @@ class Game {
     inputValue.addEventListener("input", (event) => {
       this.check(event)
     })
-    scoreBox.innerText = `wybik: ${this.score}/50`
+    scoreBox.innerText = `wynik: ${this.score}/50`
 
   }
   score = 0
@@ -56,6 +56,7 @@ class Game {
             })
           : []
         this.states = statesList
+        console.log(this.states)
       })
   }
 

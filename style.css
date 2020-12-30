@@ -36,14 +36,16 @@ header{
 
 
 .not-guessed{
-    color: rgb(247, 52, 52) !important;
-    
+    background: transparent !important;
+    border: 1px solid white !important;
 }
 
 .guessed{
-    color: rgb(109, 248, 109) !important;
-    text-shadow: 1px 1px green;
+    background: transparent !important;
+    border: 1px solid white !important;
+    
 }
+
 
 .button__container{
     width: 100%;
@@ -123,20 +125,14 @@ background: rgb(95, 87, 87);
 background: lightgreen;
 }
 
-.main--container{
+.state_container{
     width:85%;
     flex-grow: 1;
-    padding: 0.5em;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.state_container{
-    max-width: 95%;
     display: grid;
-    grid-gap: 8px;
-    grid-template-columns: repeat(auto-fill, 220px);
+    grid-template-columns: repeat(5, 1fr);
+    margin-bottom: 15px;
+    background: url(./usflag.jpg) no-repeat top fixed;
+    background-size: cover;
     }
 
 .state{
@@ -144,12 +140,11 @@ background: lightgreen;
     justify-content: center;
     align-items: center;
     font-size: 1.2vw;
-    background-color: white;
-    border-radius: 8px;
     text-transform: capitalize;
-    border: 1px solid black;
-    box-shadow: 2px 2px black;
-    color: black;
+    border: 3px solid white;
+    color: white;
+    background-color: #1b2735;
+    text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
 }
 
 
@@ -197,7 +192,7 @@ background: lightgreen;
     cursor: pointer;
   }
 
-@media (max-width: 1100px){  
+/* @media (max-width: 1100px){  
     .user_input{
 font-size: 3vw;
     }
@@ -230,4 +225,4 @@ font-size: 3vw;
         font-size: 5vw;
         margin: 10px;
     }
-}
+} */
