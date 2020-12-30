@@ -38,7 +38,7 @@ header{
 .state.not-guessed{
     background: transparent;
     border: 1px solid white;
-    text-shadow: -2px 0 red, 0 2px red, 2px 0 red, 0 -2px red;
+    text-shadow: -1px 0 red, 0 1px red, 1px 0 red, 0 -1px red;
     
 }
 
