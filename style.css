@@ -131,7 +131,7 @@ background: lightgreen;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     margin-bottom: 15px;
-    background: url(./usflag.jpg) no-repeat center center fixed;
+    background: url(./usflag.jpg) no-repeat top center fixed;
     background-size: cover;
     }
 
@@ -192,37 +192,26 @@ background: lightgreen;
     cursor: pointer;
   }
 
-/* @media (max-width: 1100px){  
+ @media (max-width: 1100px){  
+    .button__container{
+        justify-content: space-evenly;
+    }
+}
+
+@media (max-width: 800px){  
+    .state{
+        font-size: 2.2vw;
+    }
     .user_input{
-font-size: 3vw;
-    }
-.modal-content{
-    width: 50%;
-}
-
-.button__container{
-    flex-direction: column;
-}
-
-.button{
-    font-size: 3vw;
-    width: 50%;
-    margin: 3px;
-}
-
-
-.state{
-    font-size: 4vw;
-}
-}
-
-@media (max-width: 600px){ 
-    .main--container{
-        width: 95%;
-        padding: 0;
-    }
-    .button{
         font-size: 5vw;
-        margin: 10px;
     }
-} */
+
+    .button{
+        width: 35%;
+        font-size: 7vw;
+    }
+
+    #info-container{
+        width: 90vw;
+    }
+}
