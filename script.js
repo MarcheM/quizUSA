@@ -118,6 +118,8 @@ class Game {
       const handleEnd = () => {
         clearInterval(endOfGame)
         inputValue.disabled = true
+        endButton.disabled = !endButton.disabled
+        startButton.disabled = !startButton.disabled
         this.showScore()
         this.showAnswers()
       }
@@ -174,8 +176,8 @@ startButton.addEventListener("click", () => {
   let userGame = new Game()
   userGame.play()
   userGame.hidePreviousAnswers()
-  endButton.disabled = false
-  startButton.disabled = true
+  endButton.disabled = !endButton.disabled
+  startButton.disabled = !startButton.disabled
 })
 
 

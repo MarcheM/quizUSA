@@ -126,12 +126,12 @@ background: lightgreen;
 }
 
 .state_container{
-    width:85%;
+    width: 85%;
     flex-grow: 1;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     margin-bottom: 15px;
-    background: url(./usflag.jpg) no-repeat top fixed;
+    background: url(./usflag.jpg) no-repeat center center fixed;
     background-size: cover;
     }
 
