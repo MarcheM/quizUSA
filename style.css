@@ -136,7 +136,7 @@ background: lightgreen;
     grid-template-columns: repeat(5, 1fr);
     margin-bottom: 15px;
     background: url(./usflag.jpg) no-repeat top center fixed;
-    background-size: cover;
+    background-size: 100% 100%;
     }
 
 .state{
