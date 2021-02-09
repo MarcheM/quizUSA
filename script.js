@@ -32,7 +32,7 @@ class Game {
     this.time = 600
     this.states = []
     timer.innerText = `czas do końca: 10:00`
-
+    inputValue.value = ""
     this.fetchData()
     inputValue.addEventListener("input", (event) => {
       this.check(event)
