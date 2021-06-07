@@ -2,68 +2,69 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Znasz wszystkie 50 stanów USA? Sprawdź się" />
-  <link rel="stylesheet" href="./style.css">
-  <title>Quiz: Stany USA</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Znasz wszystkie 50 stanów USA? Sprawdź się" />
+    <link rel="stylesheet" href="./style.css">
+    <title>Quiz: Stany USA</title>
 </head>
 
 <body>
-  <main>
+<main>
     <div class="top">
-      <header>
-        <h2>Wymień wszystkie stany USA:</h2>
-      </header>
-      <div class="button__container">
-        <button class="button" id="start"><span class="button_text">start</span></button>
-        <button class="button" id="end" disabled><span class="button_text">zakończ</span></button>
-      </div>
-      <div id="myModal" class="modal">
-        <div class="modal-content">
-          <span class="close">&times;</span>
-          <p class="score-text"></p>
+<!--        <header>-->
+<!--            <h2>Wymień wszystkie stany USA:</h2>-->
+<!--        </header>-->
+<!--        <div class="button__container">-->
+<!--            <button class="button" id="start"><span class="button_text">start</span></button>-->
+<!--            <button class="button" id="end" disabled><span class="button_text">zakończ</span></button>-->
+<!--        </div>-->
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <p class="score-text"></p>
+            </div>
+
+        </div>
+        <div id="info-container">
+            <div id="score-box">wynik: 0/50</div>
+            <div id="time">czas do końca: 10:00</div>
         </div>
 
-      </div>
-      <div id="info-container">
-        <div id="score-box">wynik: 0/50</div>
-        <div id="time">czas do końca: 10:00</div>
-      </div>
-
-      <div class="input_box">
-        <label for="user_input_id"></label>
-        <input id="user_input_id" class="user_input" disabled />
-      </div>
+        <div class="input_box">
+            <label for="user_input_id"></label>
+            <input id="user_input_id" class="user_input" disabled />
+        </div>
     </div>
 
-    <div class="state_container">
+    <!--    <div class="state_container">-->
 
-    </div>
-  </main>
+    <!--    </div>-->
+
+    <img width="64%" src="project-files/usa-vector.svg" alt="usa map">
+</main>
 
 
+<script src="./script.js"></script>
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js"></script>
 
-  <script src="./script.js"></script>
-  <!-- The core Firebase JS SDK is always required and must be listed first -->
-  <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js"></script>
+<!-- TODO: Add SDKs for Firebase products that you want to use
+   https://firebase.google.com/docs/web/setup#available-libraries -->
 
-  <!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#available-libraries -->
-
-  <script>
+<script>
     // Your web app's Firebase configuration
     var firebaseConfig = {
-      apiKey: "AIzaSyDB30ee-2KQt8K0KlQzRl-ucXYyzn7H9cM",
-      authDomain: "quizusa-9fc86.firebaseapp.com",
-      projectId: "quizusa-9fc86",
-      storageBucket: "quizusa-9fc86.appspot.com",
-      messagingSenderId: "690615835797",
-      appId: "1:690615835797:web:79d07e680c3f023bb14f9c"
+        apiKey: 'AIzaSyDB30ee-2KQt8K0KlQzRl-ucXYyzn7H9cM',
+        authDomain: 'quizusa-9fc86.firebaseapp.com',
+        projectId: 'quizusa-9fc86',
+        storageBucket: 'quizusa-9fc86.appspot.com',
+        messagingSenderId: '690615835797',
+        appId: '1:690615835797:web:79d07e680c3f023bb14f9c'
     };
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
-  </script>
+</script>
 </body>
 
 </html>
