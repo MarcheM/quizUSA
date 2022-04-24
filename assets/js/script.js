@@ -43,13 +43,13 @@ class Game {
 
     score = 0;
 
-    fetchData = () => {
-        fetch(`https://quizusa-9fc86-default-rtdb.firebaseio.com/quiz/-MOSOJz8ogddsCk4YGxQ.json`)
-            .then(res => res.json())
-            .then(quiz => this.states = quiz
+    fetchData = async () => await fetch(`https://quizusa-9fc86-default-rtdb.firebaseio.com/quiz/-MOSOJz8ogddsCk4YGxQ.json`)
+        .then(res => res.json())
+        .then(quiz => {
+            return this.states = quiz
                 ? Object.keys(quiz).map(key => ({ ...quiz[key] }))
-                : []);
-    };
+                : []
+        });
 
     check = (event) => {
         this.states.map(state => {
@@ -69,8 +69,9 @@ class Game {
                         guessedState.classList.remove("show-bravo");
                         inputValue.classList.remove("input-highlight");
                     }, 300);
+                    console.log(property);
 
-                    // const was = svgMap.children[0].querySelectorAll('#washington-1');
+                    // const was = svgMap.children[0].querySelectorAll('#S46-washington-1');
                     // was.setAttributeNS(null, 'fill', '#212422');
                 }
             }
