@@ -21,13 +21,13 @@
     </div>
 
     <div class="button-wrapper">
-        <button class="start-button">Start</button>
-        <button class="end-button">Zakończ</button>
+        <button id="start" class="start-button">Start</button>
+        <button id="end" class="end-button" disabled>Zakończ</button>
     </div>
 
     <div class="score-wrapper">
-        <p>Wynik: 0/50</p>
-        <p>Czas do końca: 10:00</p>
+        <span id="score-box">Wynik: 0/50</span>
+        <span id="time">Czas do końca: 10:00</span>
     </div>
 
     <div class="input-wrapper">
@@ -35,50 +35,39 @@
         <input id="state-input" />
     </div>
 
-    <!--    <div class="top">-->
-    <!--        <div id="myModal" class="modal">-->
-    <!--            <div class="modal-content">-->
-    <!--                <span class="close">&times;</span>-->
-    <!--                <p class="score-text"></p>-->
-    <!--            </div>-->
-    <!--        </div>-->
-    <!--    </div>-->
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <p class="score-text"></p>
+        </div>
+    </div>
 </header>
 
 <main>
-    <div class="state_container"></div>
-    <img class='map' src="assets/svg/usa-vector.svg" alt="usa map">
+    <div class="state-container"></div>
+    <object id="svg-map" data="assets/svg/usa-map.svg" type="image/svg+xml"></object>
 </main>
 
 <footer>
-    <p>2021 - 2022 Created by:</p>
+    <p>2021 - 2022 © Created by:</p>
     <div class="links">
         <a href="https://github.com/karolskolasinski">karolskolasinski</a>
         <a href="https://github.com/marchem">MarcheM</a>
     </div>
 </footer>
 
-
 <script src="assets/js/script.js"></script>
-<!-- The core Firebase JS SDK is always required and must be listed first -->
 <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js"></script>
-
-<!-- TODO: Add SDKs for Firebase products that you want to use
-   https://firebase.google.com/docs/web/setup#available-libraries -->
-
 <script>
-    // Your web app's Firebase configuration
-    var firebaseConfig = {
+    firebase.initializeApp({
         apiKey: 'AIzaSyDB30ee-2KQt8K0KlQzRl-ucXYyzn7H9cM',
         authDomain: 'quizusa-9fc86.firebaseapp.com',
         projectId: 'quizusa-9fc86',
         storageBucket: 'quizusa-9fc86.appspot.com',
         messagingSenderId: '690615835797',
         appId: '1:690615835797:web:79d07e680c3f023bb14f9c'
-    };
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
+    });
 </script>
 </body>
-
 </html>
