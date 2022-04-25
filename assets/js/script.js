@@ -7,7 +7,6 @@ const endButton = document.querySelector("#end");
 const startButton = document.querySelector("#start");
 const scoreText = document.querySelector(".score-text");
 const closeModal = document.querySelector('.modal-close');
-const svgMap = document.getElementById('svg-map').contentDocument;
 
 const createDivs = () => {
     for (let i = 0; i < 50; i++) {
@@ -69,9 +68,14 @@ class Game {
                         guessedState.classList.remove("show-bravo");
                         inputValue.classList.remove("input-highlight");
                     }, 300);
-                    console.log(property);
 
-                    // const was = svgMap.children[0].querySelectorAll('#S46-washington-1');
+                    const svgMap = document.getElementById('svg-map').contentDocument;
+                    const svgStates = svgMap.children[0].querySelectorAll('path');
+                    Array.from(svgStates).map(state => {
+                        const stateId = state.id.split('-')[0];
+                        console.log(property, stateId);
+                    })
+
                     // was.setAttributeNS(null, 'fill', '#212422');
                 }
             }
