@@ -22,8 +22,13 @@ body {
     justify-content: space-between;
     gap: 0.3rem;
     align-items: center;
-    background-color: #045de9;
-    background-image: linear-gradient(315deg, #045de9 0%, #09c6f9 74%);
+    color: white;
+    background: #004f94;
+    background: linear-gradient(315deg, #005ba4 0%, #004f94 74%);
+}
+
+.usa-flag {
+    display: none;
 }
 
 header {
@@ -100,18 +105,32 @@ footer {
 
 a {
     text-decoration: none;
+    color: #ffc600;
+    position: relative;
+}
+
+a::before {
+    content: '';
+    background-color: #003567;
+    position: absolute;
+    left: -3px;
+    bottom: 3px;
+    width: calc(100% + 6px);
+    height: 5px;
+    z-index: -1;
+    transition: all .3s ease-in-out;
+    border-radius: 3px;
+}
+
+a:hover::before {
+    bottom: 0;
+    height: 100%;
 }
 
 .show-bravo {
     transform: scale(1.1);
     border-color: #ffc600;
     box-shadow: 0 0 1rem #ffc600;
-}
-
-.state.not-guessed {
-    background: transparent;
-    border: 1px solid white;
-    text-shadow: -1px 0 red, 0 1px red, 1px 0 red, 0 -1px red;
 }
 
 .state.not-guessed.guessed,
@@ -130,23 +149,22 @@ a {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1px;
-    /*background: url(../img/usflag.jpg) no-repeat top center fixed;*/
-    /*background-size: cover;*/
 }
 
 .state {
-    padding: .5rem;
+    padding: 1rem;
     text-transform: capitalize;
     text-align: center;
+    font-weight: bold;
     color: #f4eee2;
-    background-color: #212422;
+    background-color: rgb(5, 52, 101, .4);
 }
 
 .modal {
     display: none;
     position: fixed;
     z-index: 1;
-    padding-top: 15vh;
+    padding-top: 30vh;
     left: 0;
     top: 0;
     width: 100%;
@@ -157,17 +175,20 @@ a {
 }
 
 .modal-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     background-color: #fefefe;
     margin: auto;
-    padding: 20px;
-    border: 1px solid #888;
+    padding: .5rem 1.5rem;
+    border: 2px solid #FABD2C;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     width: 50%;
 }
 
 .modal-close {
     color: #aaaaaa;
-    float: right;
-    font-size: 28px;
+    font-size: 3rem;
     font-weight: bold;
 }
 
@@ -178,9 +199,32 @@ a {
     cursor: pointer;
 }
 
+.slide-bottom {
+    animation: slide-bottom 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+@keyframes slide-bottom {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(100px);
+    }
+}
+
+
 @media (min-width: 800px) {
     body {
         gap: 2rem;
+    }
+
+    .usa-flag {
+        display: initial;
+        position: absolute;
+        z-index: -1;
+        height: 667px;
+        width: 100%;
+        background: linear-gradient(to bottom, transparent 10%, #005399), url(usa-flag.jpg) top no-repeat;
     }
 
     header {

@@ -1,3 +1,12 @@
+firebase.initializeApp({
+    apiKey: 'AIzaSyDB30ee-2KQt8K0KlQzRl-ucXYyzn7H9cM',
+    authDomain: 'quizusa-9fc86.firebaseapp.com',
+    projectId: 'quizusa-9fc86',
+    storageBucket: 'quizusa-9fc86.appspot.com',
+    messagingSenderId: '690615835797',
+    appId: '1:690615835797:web:79d07e680c3f023bb14f9c'
+});
+
 const modal = document.querySelector(".modal");
 const timer = document.getElementById("time");
 const stateContainer = document.querySelector(".state-container");
@@ -38,6 +47,8 @@ class Game {
             this.check(event);
         });
         scoreBox.innerText = `Wynik: ${this.score}/50`;
+        const svgMap = document.getElementById('svg-map').contentDocument;
+        this.svgStates = svgMap.children[0].querySelectorAll('path');
     }
 
     score = 0;
@@ -47,7 +58,7 @@ class Game {
         .then(quiz => {
             return this.states = quiz
                 ? Object.keys(quiz).map(key => ({ ...quiz[key] }))
-                : []
+                : [];
         });
 
     check = (event) => {
@@ -69,14 +80,14 @@ class Game {
                         inputValue.classList.remove("input-highlight");
                     }, 300);
 
-                    const svgMap = document.getElementById('svg-map').contentDocument;
-                    const svgStates = svgMap.children[0].querySelectorAll('path');
-                    Array.from(svgStates).map(state => {
+                    Array.from(this.svgStates).map(state => {
                         const stateId = state.id.split('-')[0];
-                        console.log(property, stateId);
-                    })
-
-                    // was.setAttributeNS(null, 'fill', '#212422');
+                        if (property === stateId) {
+                            state.id.includes('body')
+                                ? state.setAttributeNS(null, 'fill', '#212422')
+                                : state.setAttributeNS(null, 'fill', '#f4eee2');
+                        }
+                    });
                 }
             }
         });
@@ -87,6 +98,9 @@ class Game {
             usState.innerText = "?";
             usState.classList.remove("guessed");
             usState.classList.remove("not-guessed");
+        });
+        Array.from(this.svgStates).map(state => {
+            state.setAttributeNS(null, 'fill', 'none');
         });
     };
 
@@ -121,6 +135,11 @@ class Game {
                 startButton.disabled = !startButton.disabled;
                 this.showScore();
                 this.showAnswers();
+                Array.from(this.svgStates).map(state => {
+                    state.id.includes('body')
+                        ? state.setAttributeNS(null, 'fill', '#212422')
+                        : state.setAttributeNS(null, 'fill', '#f4eee2');
+                });
             };
             if (this.time === 0 || this.score === 50) {
                 handleEnd();
