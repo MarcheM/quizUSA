@@ -135,10 +135,11 @@ a:hover::before {
 
 .state.not-guessed.guessed,
 .guessed {
-    background: transparent !important;
-    border: 1px solid white !important;
-    color: white;
     text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+}
+
+.not-guessed {
+    text-shadow: -2px 0 crimson, 0 2px crimson, 2px 0 crimson, 0 -2px crimson;
 }
 
 .input-highlight {

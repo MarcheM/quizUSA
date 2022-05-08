@@ -11,24 +11,18 @@ const modal = document.querySelector(".modal");
 const timer = document.getElementById("time");
 const stateContainer = document.querySelector(".state-container");
 const inputValue = document.querySelector("#state-input");
-const scoreBox = document.getElementById("score-box");
+const score = document.getElementById("score");
 const endButton = document.querySelector("#end");
 const startButton = document.querySelector("#start");
 const scoreText = document.querySelector(".score-text");
 const closeModal = document.querySelector('.modal-close');
 
-const createDivs = () => {
-    for (let i = 0; i < 50; i++) {
-        let tempDiv = document.createElement("div");
-        tempDiv.id = `S${i + 1}`;
-        tempDiv.classList.add("state");
-        tempDiv.innerText = "?";
-        stateContainer.appendChild(tempDiv);
-    }
-};
-
-if (stateContainer.hasChildNodes) {
-    createDivs();
+for (let i = 0; i < 50; i++) {
+    let stateDiv = document.createElement("div");
+    stateDiv.id = `S${i + 1}`;
+    stateDiv.classList.add("state");
+    stateDiv.innerText = "?";
+    stateContainer.appendChild(stateDiv);
 }
 
 closeModal.addEventListener("click", () => {
@@ -40,13 +34,13 @@ class Game {
         this.singleStates = document.querySelectorAll(".state");
         this.time = 600;
         this.states = [];
-        timer.innerText = `czas do końca: 10:00`;
+        timer.innerText = `10:00`;
         inputValue.value = "";
         this.fetchData();
         inputValue.addEventListener("input", (event) => {
             this.check(event);
         });
-        scoreBox.innerText = `Wynik: ${this.score}/50`;
+        score.innerText = `${this.score}`;
         const svgMap = document.getElementById('svg-map').contentDocument;
         this.svgStates = svgMap.children[0].querySelectorAll('path');
     }
@@ -73,7 +67,7 @@ class Game {
                     guessedState.classList.add("guessed");
                     state[property].push("placeholder");
                     this.score += 1;
-                    scoreBox.innerText = `Wynik: ${this.score}/50`;
+                    score.innerText = `${this.score}`;
                     inputValue.value = "";
                     setTimeout(() => {
                         guessedState.classList.remove("show-bravo");
@@ -136,16 +130,21 @@ class Game {
                 this.showScore();
                 this.showAnswers();
                 Array.from(this.svgStates).map(state => {
-                    state.id.includes('body')
-                        ? state.setAttributeNS(null, 'fill', '#212422')
-                        : state.setAttributeNS(null, 'fill', '#f4eee2');
+                    if (state.getAttribute('fill') === 'none') {
+                        state.id.includes('body')
+                            ? state.setAttributeNS(null, 'fill', '#363636')
+                            : state.setAttributeNS(null, 'fill', '#f4eee2');
+                    }
+                    if (this.score === 50 && state.id === 'S51-dc-1-body') {
+                        state.setAttributeNS(null, 'fill', '#212422');
+                    }
                 });
             };
             if (this.time === 0 || this.score === 50) {
                 handleEnd();
             } else {
                 this.time -= 1;
-                timer.innerText = `czas do końca: ${this.countTime(this.time)}`;
+                timer.innerText = `${this.countTime(this.time)}`;
             }
 
             document.getElementById("end").addEventListener('click', () => {
