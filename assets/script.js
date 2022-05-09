@@ -7,37 +7,37 @@ firebase.initializeApp({
     appId: '1:690615835797:web:79d07e680c3f023bb14f9c'
 });
 
-const modal = document.querySelector(".modal");
-const timer = document.getElementById("time");
-const stateContainer = document.querySelector(".state-container");
-const inputValue = document.querySelector("#state-input");
-const score = document.getElementById("score");
-const endButton = document.querySelector("#end");
-const startButton = document.querySelector("#start");
-const scoreText = document.querySelector(".score-text");
+const modal = document.querySelector('.modal');
+const timer = document.getElementById('time');
+const stateContainer = document.querySelector('.state-container');
+const inputValue = document.querySelector('#state-input');
+const score = document.getElementById('score');
+const endButton = document.querySelector('#end');
+const startButton = document.querySelector('#start');
+const scoreText = document.querySelector('.score-text');
 const closeModal = document.querySelector('.modal-close');
 
 for (let i = 0; i < 50; i++) {
-    let stateDiv = document.createElement("div");
+    let stateDiv = document.createElement('div');
     stateDiv.id = `S${i + 1}`;
-    stateDiv.classList.add("state");
-    stateDiv.innerText = "?";
+    stateDiv.classList.add('state');
+    stateDiv.innerText = '?';
     stateContainer.appendChild(stateDiv);
 }
 
-closeModal.addEventListener("click", () => {
-    modal.style.display = "none";
+closeModal.addEventListener('click', () => {
+    modal.style.display = 'none';
 });
 
 class Game {
     constructor() {
-        this.singleStates = document.querySelectorAll(".state");
+        this.singleStates = document.querySelectorAll('.state');
         this.time = 600;
         this.states = [];
-        timer.innerText = `10:00`;
-        inputValue.value = "";
+        timer.innerText = '10:00';
+        inputValue.value = '';
         this.fetchData();
-        inputValue.addEventListener("input", (event) => {
+        inputValue.addEventListener('input', (event) => {
             this.check(event);
         });
         score.innerText = `${this.score}`;
@@ -47,31 +47,32 @@ class Game {
 
     score = 0;
 
-    fetchData = async () => await fetch(`https://quizusa-9fc86-default-rtdb.firebaseio.com/quiz/-MOSOJz8ogddsCk4YGxQ.json`)
-        .then(res => res.json())
-        .then(quiz => {
-            return this.states = quiz
-                ? Object.keys(quiz).map(key => ({ ...quiz[key] }))
-                : [];
-        });
+    fetchData = async () => {
+        const data = await fetch('https://quizusa-9fc86-default-rtdb.firebaseio.com/quiz/-MOSOJz8ogddsCk4YGxQ.json');
+        const quiz = await data.json()
+        console.log(quiz);
+        this.states = quiz
+            ? Object.keys(quiz).map(key => ({ ...quiz[key] }))
+            : [];
+    };
 
     check = (event) => {
         this.states.map(state => {
             for (const property in state) {
                 if (state[property].includes(event.target.value.toLowerCase())
-                    && !state[property].includes("placeholder")) {
+                    && !state[property].includes('placeholder')) {
                     const guessedState = document.getElementById(property);
                     guessedState.innerText = state[property][0];
-                    inputValue.classList.add("input-highlight");
-                    guessedState.classList.add("show-bravo");
-                    guessedState.classList.add("guessed");
-                    state[property].push("placeholder");
+                    inputValue.classList.add('input-highlight');
+                    guessedState.classList.add('show-bravo');
+                    guessedState.classList.add('guessed');
+                    state[property].push('placeholder');
                     this.score += 1;
                     score.innerText = `${this.score}`;
-                    inputValue.value = "";
+                    inputValue.value = '';
                     setTimeout(() => {
-                        guessedState.classList.remove("show-bravo");
-                        inputValue.classList.remove("input-highlight");
+                        guessedState.classList.remove('show-bravo');
+                        inputValue.classList.remove('input-highlight');
                     }, 300);
 
                     Array.from(this.svgStates).map(state => {
@@ -89,9 +90,9 @@ class Game {
 
     hidePreviousAnswers = () => {
         Array.from(this.singleStates).map(usState => {
-            usState.innerText = "?";
-            usState.classList.remove("guessed");
-            usState.classList.remove("not-guessed");
+            usState.innerText = '?';
+            usState.classList.remove('guessed');
+            usState.classList.remove('not-guessed');
         });
         Array.from(this.svgStates).map(state => {
             state.setAttributeNS(null, 'fill', 'none');
@@ -103,7 +104,7 @@ class Game {
             for (const property in state) {
                 const guessedState = document.getElementById(property);
                 guessedState.innerText = state[property][0];
-                guessedState.classList.add("not-guessed");
+                guessedState.classList.add('not-guessed');
             }
         });
     };
@@ -112,11 +113,7 @@ class Game {
         let minutes = Math.floor(numberOfSecond / 60);
         let seconds = numberOfSecond - (minutes * 60);
         let finalSeconds;
-        if (seconds < 10) {
-            finalSeconds = `0${seconds}`;
-        } else {
-            finalSeconds = seconds;
-        }
+        finalSeconds = seconds < 10 ? `0${seconds}` : seconds;
         return `${minutes}:${finalSeconds}`;
     };
 
@@ -147,7 +144,7 @@ class Game {
                 timer.innerText = `${this.countTime(this.time)}`;
             }
 
-            document.getElementById("end").addEventListener('click', () => {
+            document.getElementById('end').addEventListener('click', () => {
                 handleEnd();
                 endButton.disabled = true;
                 startButton.disabled = false;
@@ -156,16 +153,16 @@ class Game {
     };
 
     showScore = () => {
-        modal.style.display = "block";
+        modal.style.display = 'block';
         scoreText.innerText = this.scoreContent();
     };
 
     scoreContent = () => {
         if (this.score === 50) {
-            return `Gratulacje! Odgadłeś wszystkie stany!`;
+            return 'Gratulacje! Odgadłeś wszystkie stany!';
         }
         if (this.score === 1 || this.score === 0) {
-            return `Heh... Przynajmniej mała szansa, że następnym razem będzie gorzej!`;
+            return 'Heh... Przynajmniej mała szansa, że następnym razem będzie gorzej!';
         }
         if (this.score < 5) {
             return `Zdobyłeś ${this.score} punkty. Nie martw się, w czymś innym musisz być dobry (lub chociaż przeciętny, rajt?)`;
@@ -190,7 +187,7 @@ class Game {
     };
 }
 
-startButton.addEventListener("click", () => {
+startButton.addEventListener('click', () => {
     let userGame = new Game();
     userGame.play();
     userGame.hidePreviousAnswers();
