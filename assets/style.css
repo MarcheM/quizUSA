@@ -1,0 +1,253 @@
+*, ::before, ::after {
+    box-sizing: border-box;
+    font-family: 'Prompt', sans-serif;
+}
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p,
+blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins,
+kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd,
+ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu,
+nav, output, ruby, section, summary, time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+body {
+    padding: .5rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 0.3rem;
+    align-items: center;
+    color: white;
+    background: #004f94;
+    background: linear-gradient(315deg, #005ba4 0%, #004f94 74%);
+}
+
+.usa-flag {
+    display: none;
+}
+
+header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: .3rem;
+}
+
+.heading-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.heading-wrapper h1 {
+    font-size: 6vw;
+}
+
+.button-wrapper {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+}
+
+button {
+    padding: .2em 1em;
+    font-size: 1rem;
+    background: #FABD2C;
+    box-shadow: rgba(0, 0, 0, 0.25) 0 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0 0 0 1px inset;
+    cursor: pointer;
+    transition: .5s;
+    transform: skewX(-5deg);
+}
+
+button:disabled {
+    color: #808080;
+    background: #f6c352;
+}
+
+.score-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+input {
+    padding: .3rem;
+    width: 100%;
+    font-size: 1.3rem;
+}
+
+main {
+    width: 100%;
+}
+
+object {
+    width: 100%;
+}
+
+footer {
+    padding: 2rem 0 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 1rem;
+    justify-content: center;
+    font-size: .9rem;
+}
+
+.links {
+    display: flex;
+    gap: 1rem;
+}
+
+a {
+    text-decoration: none;
+    color: #ffc600;
+    position: relative;
+}
+
+a::before {
+    content: '';
+    background-color: #003567;
+    position: absolute;
+    left: -3px;
+    bottom: 3px;
+    width: calc(100% + 6px);
+    height: 5px;
+    z-index: -1;
+    transition: all .3s ease-in-out;
+    border-radius: 3px;
+}
+
+a:hover::before {
+    bottom: 0;
+    height: 100%;
+}
+
+.show-bravo {
+    transform: scale(1.1);
+    border-color: #ffc600;
+    box-shadow: 0 0 1rem #ffc600;
+}
+
+.state.not-guessed.guessed,
+.guessed {
+    text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+}
+
+.not-guessed {
+    text-shadow: -2px 0 crimson, 0 2px crimson, 2px 0 crimson, 0 -2px crimson;
+}
+
+.input-highlight {
+    background: lightgreen;
+}
+
+.state-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+}
+
+.state {
+    padding: 1rem;
+    text-transform: capitalize;
+    text-align: center;
+    font-weight: bold;
+    color: #f4eee2;
+    background-color: rgb(5, 52, 101, .4);
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 30vh;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    color: black
+}
+
+.modal-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fefefe;
+    margin: auto;
+    padding: .5rem 1.5rem;
+    border: 2px solid #FABD2C;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    width: 50%;
+}
+
+.modal-close {
+    color: #aaaaaa;
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+.modal-close:hover,
+.modal-close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.slide-bottom {
+    animation: slide-bottom 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+@keyframes slide-bottom {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(100px);
+    }
+}
+
+
+@media (min-width: 800px) {
+    body {
+        gap: 2rem;
+    }
+
+    .usa-flag {
+        display: initial;
+        position: absolute;
+        z-index: -1;
+        height: 667px;
+        width: 100%;
+        background: linear-gradient(to bottom, transparent 10%, #005399), url(usa-flag.jpg) top no-repeat;
+    }
+
+    header {
+        max-width: 800px;
+    }
+
+    .heading-wrapper h1 {
+        font-size: 2rem;
+    }
+
+    main {
+        max-width: 1200px;
+        display: flex;
+        flex-direction: column-reverse;
+        gap: 2.5rem;
+    }
+
+    object {
+        height: fit-content;
+    }
+
+    .state-container {
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
