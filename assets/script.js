@@ -50,7 +50,6 @@ class Game {
     fetchData = async () => {
         const data = await fetch('https://quizusa-9fc86-default-rtdb.firebaseio.com/quiz/-MOSOJz8ogddsCk4YGxQ.json');
         const quiz = await data.json()
-        console.log(quiz);
         this.states = quiz
             ? Object.keys(quiz).map(key => ({ ...quiz[key] }))
             : [];
